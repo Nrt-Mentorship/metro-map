@@ -335,5 +335,359 @@ new google.maps.Point(10, 0)]
 
 drawRoute(jslocations,labels,labelOrigin,"green","#52a531",map);
 //----------------------
+
+
+  //------------------------------------------------------------------
+  //Orange line
+  var orangeLineLocations = [
+    //stations//
+{ lat: 24.592313, lng: 46.543124 },
+    //stations//
+
+{ lat: 24.590317, lng: 46.542383 },
+{ lat: 24.589770, lng: 46.541482 },
+{ lat: 24.589497, lng: 46.541139 },
+{ lat: 24.589175, lng: 46.540956 },
+{ lat: 24.588819, lng: 46.540827 },
+{ lat: 24.588180, lng: 46.540872 },
+{ lat: 24.587595, lng: 46.541194 },
+{ lat: 24.587185, lng: 46.541564 },
+{ lat: 24.586951, lng: 46.542117 },
+
+
+//stations//
+{ lat: 24.585415, lng: 46.559856 },
+    //stations//
+
+{ lat: 24.583794, lng: 46.581049 },
+{ lat: 24.583970, lng: 46.582642 },
+
+{ lat: 24.584533, lng: 46.584128 },
+
+
+
+{ lat: 24.585355, lng: 46.585405 },
+{ lat: 24.585453, lng: 46.585812 },
+{ lat: 24.585423, lng: 46.586279 },
+{ lat: 24.585036, lng: 46.586889 },
+{ lat: 24.584411, lng: 46.587260 },
+{ lat: 24.582524, lng: 46.588483 },
+{ lat: 24.573539, lng: 46.594856 },
+{ lat: 24.573203, lng: 46.595457 },
+{ lat: 24.573056, lng: 46.596278 },
+//stations//
+{ lat: 24.581186, lng: 46.612243 },
+//stations//
+
+
+
+{ lat: 24.583752, lng: 46.616405 },
+
+
+//stations//
+{ lat: 24.600548, lng: 46.643865 },
+//stations//
+
+//stations//
+{ lat: 24.606692, lng: 46.653890 },
+//stations//
+
+{ lat: 24.613109, lng: 46.664498 },
+{ lat: 24.613724, lng: 46.667008 },
+{ lat: 24.613592, lng: 46.675115 },
+{ lat: 24.612958, lng: 46.677850 },
+{ lat: 24.612997, lng: 46.680688 },
+
+//stations//
+{ lat: 24.614879, lng: 46.686476 },
+//stations//
+
+
+
+
+{ lat: 24.617320, lng: 46.693255 },
+
+//stations//
+{ lat: 24.618363, lng: 46.697867 },
+//stations//
+
+
+{ lat: 24.618811, lng: 46.699294 },
+{ lat: 24.621440, lng: 46.703403 },
+{ lat: 24.624117, lng: 46.707807 },
+
+//stations//
+{ lat: 24.633903, lng: 46.725482 },
+//stations//
+
+//stations//
+{ lat: 24.637129, lng: 46.731609 },
+//stations//
+
+//stations//
+{ lat: 24.644577, lng: 46.738842 },
+//stations//
+
+
+//stations//
+{ lat: 24.649389, lng: 46.740663 },
+//stations//
+
+//stations//
+{ lat: 24.660645, lng: 46.744159 },
+//stations//
+
+
+{ lat: 24.667582, lng: 46.749068 },
+{ lat: 24.669600, lng: 46.751069 },
+
+//stations//
+{ lat: 24.673135, lng: 46.760332 },
+//stations//
+
+{ lat: 24.675980, lng: 46.766673 },
+
+//stations//
+{ lat: 24.680165, lng: 46.779272 },
+//stations//
+
+{ lat: 24.683859, lng: 46.790805 },
+
+
+//stations//
+{ lat: 24.686087, lng: 46.795955 },
+//stations//
+
+{ lat: 24.692875, lng: 46.809533 },
+
+
+{ lat: 24.701569, lng: 46.829683 },
+
+
+//stations//
+{ lat: 24.712671, lng: 46.847357 },
+//stations//
+
+//stations//
+{ lat: 24.720428, lng: 46.858838 },
+//stations//
+
+
+
+
+
+
+
+
+];
+
+var orangeStations = [
+
+{ lat: 24.592313, lng: 46.543124 },
+
+
+{ lat: 24.585415, lng: 46.559856 },
+
+
+{ lat: 24.582524, lng: 46.588483 },
+
+
+//stations//
+{ lat: 24.581186, lng: 46.612243 },
+//stations//
+
+
+//stations//
+{ lat: 24.600548, lng: 46.643865 },
+//stations//
+
+//stations//
+{ lat: 24.606692, lng: 46.653890 },
+//stations//
+
+
+//stations//
+{ lat: 24.614879, lng: 46.686476 },
+//stations//
+
+
+
+
+{ lat: 24.617320, lng: 46.693255 },
+
+//stations//
+{ lat: 24.618363, lng: 46.697867 },
+//stations//
+
+//stations//
+{ lat: 24.633903, lng: 46.725482 },
+//stations//
+
+//stations//
+{ lat: 24.637129, lng: 46.731609 },
+//stations//
+
+//stations//
+{ lat: 24.644577, lng: 46.738842 },
+//stations//
+
+
+//stations//
+{ lat: 24.649389, lng: 46.740663 },
+//stations//
+
+//stations//
+{ lat: 24.660645, lng: 46.744159 },
+//stations//
+
+//stations//
+{ lat: 24.673135, lng: 46.760332 },
+//stations//
+
+
+//stations//
+{ lat: 24.680165, lng: 46.779272 },
+//stations//
+
+//stations//
+{ lat: 24.686087, lng: 46.795955 },
+//stations//
+
+
+
+//stations//
+{ lat: 24.712671, lng: 46.847357 },
+//stations//
+
+//stations//
+{ lat: 24.720428, lng: 46.858838 },
+//stations//
+
+
+];
+var labels = ['2A1', '2A2', '2A3', '2B1', '2B2', '2B4', '2C1', '2C2', '2C3', '2D2', '2E1', '2E2', '2F1', '2G1', '2C2', '2C3', '2f5', '3f1', '1f5']
+
+
+// offset to postion the lables
+var labelOrigin = [
+new google.maps.Point(10, 0), new google.maps.Point(12, -10),
+new google.maps.Point(-20, 10), new google.maps.Point(12, -5),
+new google.maps.Point(-10, 12), new google.maps.Point(-10, -23),
+new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
+new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
+new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
+new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
+new google.maps.Point(-10, 10), new google.maps.Point(10, 0),
+new google.maps.Point(-10, 10), new google.maps.Point(-10, 10),
+new google.maps.Point(-10, 10),
+
+]
+
+// drawRoute(jslocations,labels,labelOrigin,"orange","#FFA500",map);
+
+drawPolyAndRoute(orangeLineLocations, orangeStations, labels, labelOrigin, "orange", "#FFA500", map);
+
+//-----------------------------------------------------------------------
+
 }
+
+
+// update for drawRoute function 
+
+function drawPolyAndRoute(orangeLineLocations, stationsLocations, labels, labelOrigin, colorName, color, map) {
+
+
+
+
+
+//Create an empty array to store the coordinates from the JSON object above.
+var coordinates = [];
+var stationsCoordinates = [];
+
+//For each line in the JSON object, pull out the longitude and latitude and add to the coordinates array.
+for (i = 0; i < orangeLineLocations.length; i++) {
+
+var longitudes = orangeLineLocations[i].lng
+
+var latitudes = orangeLineLocations[i].lat
+
+coordinates.push({
+  lat: latitudes,
+  lng: longitudes
+});
+}
+
+for (i = 0; i < stationsLocations.length; i++) {
+
+var longitudes = stationsLocations[i].lng
+
+var latitudes = stationsLocations[i].lat
+
+stationsCoordinates.push({
+  lat: latitudes,
+  lng: longitudes
+});
+}
+
+// Define a bound from the given coordinates from which we can center the map.
+
+
+//Create the svg marker icon
+var icon = {
+path: google.maps.SymbolPath.CIRCLE,
+strokeOpacity: 1,
+fillOpacity: 1,
+scale: 7,
+fillColor: "#ffffff",
+strokeColor: color,
+strokeOpacity: 1.0,
+strokeWeight: 5,
+
+
+};
+
+//Create the markers
+
+
+for (i = 0; i < stationsCoordinates.length; i++) {
+console.log("length", stationsCoordinates.length)
+
+
+var positions = new google.maps.LatLng(stationsCoordinates[i]);
+icon['labelOrigin'] = labelOrigin[i]
+console.log("index", i)
+console.log("label", labels[i])
+console.log("labelOrigin", labelOrigin[i])
+
+var marker = new MarkerWithLabel({
+  position: positions,
+  // icon: mapStyles.uavSymbolBlack,
+  icon: icon,
+  labelContent: labels[i],
+  labelAnchor: labelOrigin[i],
+  labelClass: "labels-" + colorName,
+  labelStyle: {
+    opacity: 0.75
+  },
+  zIndex: 999999,
+  map: map
+})
+
+};
+
+//Create the polyline that connects the markers.
+var LinePath = new google.maps.Polyline({
+path: coordinates,
+geodesic: true,
+strokeColor: color,
+strokeOpacity: 1.0,
+strokeWeight: 7
+});
+
+LinePath.setMap(map);
+
+}
+
+
+
 export { initMap };

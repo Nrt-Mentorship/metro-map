@@ -565,7 +565,7 @@ var orangeStations = [
 
 
 ];
-var labels = ['2A1', '2A2', '2A3', '2B1', '2B2', '2B4', '2C1', '2C2', '2C3', '2D2', '2E1', '2E2', '2F1', '2G1', '2C2', '2C3', '2f5', '3f1', '1f5']
+var labels = [ '2D2', '2E1', '2E2', '2F1', '2G1', '2C2', '2C3', '2f5', '3f1', '1f5','2A1', '2A2', '2A3', '2B1', '2B2', '2B4', '2C1', '2C2', '2C3']
 
 
 // offset to postion the lables

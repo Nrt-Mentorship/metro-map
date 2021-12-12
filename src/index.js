@@ -1,99 +1,93 @@
 import "./style.css";
 
-function drawRoute(jslocations,labels,labelOrigin,colorName,color,map){
- 
+
+
+
+  // update for drawRoute function 
+
+function drawPolyAndRoute(LineLocations, stationsLocations, labels, labelOrigin, colorName, color, map) {
+
 
 
 
 
   //Create an empty array to store the coordinates from the JSON object above.
-    var coordinates = [];
+  var coordinates = [];
+  var stationsCoordinates = [];
   
   //For each line in the JSON object, pull out the longitude and latitude and add to the coordinates array.
-    for (i = 0; i < jslocations.length; i++) {
+
+  for (i = 0; i < stationsLocations.length; i++) {
   
-    var longitudes =jslocations[i].lng
+  var longitudes = stationsLocations[i].lng
   
-        var latitudes = jslocations[i].lat
-        
-    coordinates.push({
-                lat: latitudes,
-                lng: longitudes
-                    });
-    }
+  var latitudes = stationsLocations[i].lat
+  
+  stationsCoordinates.push({
+    lat: latitudes,
+    lng: longitudes
+  });
+  }
   
   // Define a bound from the given coordinates from which we can center the map.
-
+  
   
   //Create the svg marker icon
   var icon = {
-    path: google.maps.SymbolPath.CIRCLE,
-    strokeOpacity: 1,
-    fillOpacity: 1,
-    scale: 7,
-    fillColor:"#ffffff",
-    strokeColor: color,
-    strokeOpacity: 1.0,
-    strokeWeight:5,
-    
+  path: google.maps.SymbolPath.CIRCLE,
+  strokeOpacity: 1,
+  fillOpacity: 1,
+  scale: 7,
+  fillColor: "#ffffff",
+  strokeColor: color,
+  strokeOpacity: 1.0,
+  strokeWeight: 5,
+  
   
   };
   
   //Create the markers
   
-  let count=0;
-  for( i = 0; i < jslocations.length; i++ ) {
-     if(jslocations[i].station==true)  {
-      var positions = new google.maps.LatLng(jslocations[i]);
-
-      icon['labelOrigin']=labelOrigin[count]
-    
-      var marker = new MarkerWithLabel({
-        position:positions,
-        // icon: mapStyles.uavSymbolBlack,
-        icon:icon,
-        labelContent:labels[count],
-        labelAnchor: labelOrigin[count],
-        labelClass: "labels-"+colorName,
-        labelStyle: {
-            opacity: 0.75
-        },
-        zIndex: 999999,
-        map: map
-      })
-      count=count+1;
-     }    
-
+  
+  for (i = 0; i < stationsCoordinates.length; i++) {
+  console.log("length", stationsCoordinates.length)
+  
+  
+  var positions = new google.maps.LatLng(stationsCoordinates[i]);
+  icon['labelOrigin'] = labelOrigin[i]
+  console.log("index", i)
+  console.log("label", labels[i])
+  console.log("labelOrigin", labelOrigin[i])
+  
+  var marker = new MarkerWithLabel({
+    position: positions,
+    // icon: mapStyles.uavSymbolBlack,
+    icon: icon,
+    labelContent: labels[i],
+    labelAnchor: labelOrigin[i],
+    labelClass: "labels-" + colorName,
+    labelStyle: {
+      opacity: 0.75
+    },
+    zIndex: 999999,
+    map: map
+  })
   
   };
   
   //Create the polyline that connects the markers.
   var LinePath = new google.maps.Polyline({
-    path: coordinates,
-    geodesic: true,
-    strokeColor: color,
-    strokeOpacity: 1.0,
-    strokeWeight: 7
-     });
+  path: LineLocations,
+  geodesic: true,
+  strokeColor: color,
+  strokeOpacity: 1.0,
+  strokeWeight: 7
+  });
   
-     LinePath.setMap(map);
-
-
-     LinePath.addListener("click", (mapsMouseEvent) => {
-
-      // Close the current InfoWindow.
-  
-      // Create a new InfoWindow.
-      let infoWindow = new google.maps.InfoWindow({
-        position: mapsMouseEvent.latLng,
-      });
-      infoWindow.setContent(
-        JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-      );
-      infoWindow.open(map);
-    });
+  LinePath.setMap(map);
   
   }
+  
   
 function initMap() {
 
@@ -260,6 +254,28 @@ var jslocations =[
 
 
 ];
+var stations =[
+  {lat:24.701386355433627, lng:46.829881768713584 },
+  {lat:24.747361796216303, lng:46.797889373643635},
+
+  {lat:24.77660830265986, lng:46.77744458960821},
+
+  {lat:24.793214958157993, lng:46.765599804146134},
+
+
+  {lat:24.786713414385222, lng:46.730128243579685},
+
+  {lat:24.807277811187728, lng:46.71105588351672},
+  {lat:24.800191798824756, lng:46.69383440815601},
+  {lat:24.786279,lng: 46.660531},
+  {lat: 24.76792624982181, lng: 46.64368043840547 },
+
+
+
+
+
+
+];
 var labels=['2A1','2A2','2A3','2B1','2B2','2B4','2C1','2C2','2C3','2D2','2E1','2E2','2F1','2G1']
 
 
@@ -271,7 +287,7 @@ new google.maps.Point(-10, 12),new google.maps.Point(-10, -23),
 new google.maps.Point(-10, 10),new google.maps.Point(-28, -5),
 new google.maps.Point(10, 0)]
 
-drawRoute(jslocations,labels,labelOrigin,"purple","#991a7e",map);
+drawPolyAndRoute(jslocations,stations,labels,labelOrigin,"purple","#991a7e",map);
 //----------------------
 
 
@@ -322,6 +338,27 @@ var jslocations =[
 
 
 ];
+
+var stations =[
+  {lat: 24.64530273122771, lng: 46.71570998231822,station:true},
+
+  {lat:24.652755004875484, lng:46.716111560123416,station:true},
+  {lat:24.6784544889062, lng:46.71832814266125,station:true},
+  {lat:24.68657560389134, lng:46.71821834918483,station:true},
+  {lat:24.69763332233779, lng:46.71806251934823,station:true},
+  {lat:24.70606806622423, lng:46.71457730992477,station:true},
+  {lat:24.710643876278194, lng:46.7070047193485,station:true},
+ 
+  
+  {lat:24.742620780251272, lng:46.70131266397654,station:true},
+
+
+
+  
+
+
+
+];
 var labels=['5A1','5A6','5A3','5B1','5B2','5B3','5B4','5C4']
 
 
@@ -333,7 +370,7 @@ new google.maps.Point(-10, 12),new google.maps.Point(-10, -23),
 new google.maps.Point(-10, 10),new google.maps.Point(-28, -5),
 new google.maps.Point(10, 0)]
 
-drawRoute(jslocations,labels,labelOrigin,"green","#52a531",map);
+drawPolyAndRoute(jslocations,stations,labels,labelOrigin,"green","#52a531",map);
 //----------------------
 
 
@@ -570,13 +607,13 @@ var labels = ['2A1', '2A2', '2A3', '2B1', '2B2', '2B4', '2C1', '2C2', '2C3', '2D
 
 // offset to postion the lables
 var labelOrigin = [
-new google.maps.Point(10, 0), new google.maps.Point(12, -10),
-new google.maps.Point(-20, 10), new google.maps.Point(12, -5),
+new google.maps.Point(-10, -25), new google.maps.Point(-5, 12),
+new google.maps.Point(-8, -25), new google.maps.Point(12, -5),
 new google.maps.Point(-10, 12), new google.maps.Point(-10, -23),
+new google.maps.Point(-10, 10), new google.maps.Point(-25, -20),
+new google.maps.Point(-10, 10), new google.maps.Point(-28, -10),
 new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
-new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
-new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
-new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
+new google.maps.Point(12, 0), new google.maps.Point(-28, -5),
 new google.maps.Point(-10, 10), new google.maps.Point(10, 0),
 new google.maps.Point(-10, 10), new google.maps.Point(-10, 10),
 new google.maps.Point(-10, 10),
@@ -592,101 +629,6 @@ drawPolyAndRoute(orangeLineLocations, orangeStations, labels, labelOrigin, "oran
 }
 
 
-// update for drawRoute function 
-
-function drawPolyAndRoute(orangeLineLocations, stationsLocations, labels, labelOrigin, colorName, color, map) {
-
-
-
-
-
-//Create an empty array to store the coordinates from the JSON object above.
-var coordinates = [];
-var stationsCoordinates = [];
-
-//For each line in the JSON object, pull out the longitude and latitude and add to the coordinates array.
-for (i = 0; i < orangeLineLocations.length; i++) {
-
-var longitudes = orangeLineLocations[i].lng
-
-var latitudes = orangeLineLocations[i].lat
-
-coordinates.push({
-  lat: latitudes,
-  lng: longitudes
-});
-}
-
-for (i = 0; i < stationsLocations.length; i++) {
-
-var longitudes = stationsLocations[i].lng
-
-var latitudes = stationsLocations[i].lat
-
-stationsCoordinates.push({
-  lat: latitudes,
-  lng: longitudes
-});
-}
-
-// Define a bound from the given coordinates from which we can center the map.
-
-
-//Create the svg marker icon
-var icon = {
-path: google.maps.SymbolPath.CIRCLE,
-strokeOpacity: 1,
-fillOpacity: 1,
-scale: 7,
-fillColor: "#ffffff",
-strokeColor: color,
-strokeOpacity: 1.0,
-strokeWeight: 5,
-
-
-};
-
-//Create the markers
-
-
-for (i = 0; i < stationsCoordinates.length; i++) {
-console.log("length", stationsCoordinates.length)
-
-
-var positions = new google.maps.LatLng(stationsCoordinates[i]);
-icon['labelOrigin'] = labelOrigin[i]
-console.log("index", i)
-console.log("label", labels[i])
-console.log("labelOrigin", labelOrigin[i])
-
-var marker = new MarkerWithLabel({
-  position: positions,
-  // icon: mapStyles.uavSymbolBlack,
-  icon: icon,
-  labelContent: labels[i],
-  labelAnchor: labelOrigin[i],
-  labelClass: "labels-" + colorName,
-  labelStyle: {
-    opacity: 0.75
-  },
-  zIndex: 999999,
-  map: map
-})
-
-};
-
-//Create the polyline that connects the markers.
-var LinePath = new google.maps.Polyline({
-path: coordinates,
-geodesic: true,
-strokeColor: color,
-strokeOpacity: 1.0,
-strokeWeight: 7
-});
-
-LinePath.setMap(map);
-
-}
 
 
 

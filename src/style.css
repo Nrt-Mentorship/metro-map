@@ -36,3 +36,16 @@ body {
 
   white-space: nowrap;
 }
+
+
+.labels-orange {
+  color: white;
+  background-color: #FFA500;
+  font-family: "Lucida Grande", "Arial", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+
+
+  white-space: nowrap;
+}

@@ -20,6 +20,8 @@ body {
   font-size: 10px;
   font-weight: bold;
   text-align: center;
+  padding:0.2em;
+
 
 
   white-space: nowrap;
@@ -32,6 +34,8 @@ body {
   font-size: 10px;
   font-weight: bold;
   text-align: center;
+  padding:0.2em;
+
 
 
   white-space: nowrap;
@@ -45,7 +49,7 @@ body {
   font-size: 10px;
   font-weight: bold;
   text-align: center;
-
+  padding:0.2em;
 
   white-space: nowrap;
 }

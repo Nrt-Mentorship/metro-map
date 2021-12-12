@@ -38,6 +38,7 @@ function drawPolyAndRoute(LineLocations, stationsLocations, labels, labelOrigin,
   strokeColor: color,
   strokeOpacity: 1.0,
   strokeWeight: 5,
+
   
   
   };
@@ -60,7 +61,10 @@ function drawPolyAndRoute(LineLocations, stationsLocations, labels, labelOrigin,
     labelAnchor: labelOrigin[i],
     labelClass: "labels-" + colorName,
     labelStyle: {
-      opacity: 0.75
+      opacity: 1,
+      
+
+
     },
     zIndex: 999999,
     map: map
@@ -565,21 +569,21 @@ var orangeStations = [
 
 
 ];
-var labels = ['2A1', '2A2', '2A3', '2B1', '2B2', '2B4', '2C1', '2C2', '2C3', '2D2', '2E1', '2E2', '2F1', '2G1', '2C2', '2C3', '2f5', '3f1', '1f5']
+var labels = ['3A1', '3A2', '3B1', '2B2', '3C2', '3D3', '3D1', '???', '3E1', '3E2', '3E3', '3E4', '3E5', '3E6', '3F2', '3G1', '3G2', '3K2', '3k1']
 
 
 // offset to postion the lables
 var labelOrigin = [
-new google.maps.Point(-10, -25), new google.maps.Point(-5, 12),
-new google.maps.Point(-8, -25), new google.maps.Point(12, -5),
-new google.maps.Point(-10, 12), new google.maps.Point(-10, -23),
-new google.maps.Point(-10, 10), new google.maps.Point(-25, -20),
-new google.maps.Point(-10, 10), new google.maps.Point(-28, -10),
-new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
-new google.maps.Point(12, 0), new google.maps.Point(-28, -5),
-new google.maps.Point(-10, 10), new google.maps.Point(10, 0),
-new google.maps.Point(-10, 10), new google.maps.Point(-10, 10),
-new google.maps.Point(-10, 10),
+new google.maps.Point(-10, -30), new google.maps.Point(-5, 12),
+new google.maps.Point(0, -25), new google.maps.Point(0, 10),
+new google.maps.Point(-10, 12), new google.maps.Point(-10, -25),
+new google.maps.Point(-25, 10), new google.maps.Point(-20, -30),
+new google.maps.Point(5, 10), new google.maps.Point(-40, -10),
+new google.maps.Point(-10, 15), new google.maps.Point(5, 15),
+new google.maps.Point(15, 5), new google.maps.Point(10 ,0),
+new google.maps.Point(-20, -30), new google.maps.Point(-10, 10),
+new google.maps.Point(-10, 10), new google.maps.Point(-10, -30),
+new google.maps.Point(10, -5),
 
 ]
 

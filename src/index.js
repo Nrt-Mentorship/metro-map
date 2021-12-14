@@ -7,6 +7,16 @@ import "./style.css";
 var rect;
 var highlitedLine;
 var markers=[];
+var map;
+
+function zoomToObject(obj){
+  var bounds = new google.maps.LatLngBounds();
+  var points = obj.getPath().getArray();
+  for (var n = 0; n < points.length ; n++){
+      bounds.extend(points[n]);
+  }
+  map.fitBounds(bounds);
+}
 function drawPolyAndRoute(
   LineLocations,
   stationsLocations,
@@ -67,6 +77,12 @@ function drawPolyAndRoute(
       zIndex: 999999,
       map: map,
     });
+
+
+    google.maps.event.addListener(marker, 'click', function() {
+      map.panTo(this.getPosition());
+      map.setZoom(13);
+    });
     markersList.push(marker)
 
   }
@@ -83,8 +99,12 @@ function drawPolyAndRoute(
   markers.push({line:LinePath,stations:markersList})
 
   LinePath.setMap(map);
+  
+
   google.maps.event.addListener(LinePath, 'click', function(latlng) {
     highlitedLine=LinePath;
+    zoomToObject(LinePath);
+
     
     for (let index = 0; index < markers.length; index++) {
       const markersList = markers[index];
@@ -104,7 +124,7 @@ function drawPolyAndRoute(
 }
 function initMap() {
 
-  const map = new google.maps.Map(document.getElementById("map"), {
+   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 11,
     center: { lat: 24.731488, lng: 46.707267 }
   });

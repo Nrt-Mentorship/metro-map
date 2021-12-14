@@ -13,6 +13,9 @@ import {orangeStations} from "./coordinates.js";
 import {redLineCoordinates} from "./coordinates.js" ;
 import {redStations} from "./coordinates.js";
 
+import {yellowLineCoordinates} from "./coordinates.js" ;
+import {yellowStations} from "./coordinates.js";
+
 
 import "./style.css";
 
@@ -208,6 +211,17 @@ function initMap() {
       new google.maps.Point(10, 0)] 
   
     drawPolyAndRoute(redLineCoordinates, redStations, labels, labelOrigin, "red", "#FF0000", map);
+
+  //-----------------------------------------------------------------------
+    // Yellow Line
+    var labels=['4g3','4g2','4g1','4e2','4e1','4d1','4c2']
+    var labelOrigin=[
+      new google.maps.Point(-30, 0),new google.maps.Point(10, -10),
+      new google.maps.Point(-30, 10),new google.maps.Point(10, -10),
+      new google.maps.Point(-30, -10),new google.maps.Point(10, -10),
+      new google.maps.Point(-20, -20)]
+  
+      drawPolyAndRoute(yellowLineCoordinates,yellowStations,labels,labelOrigin,"yellow","#f3e930",map);
     
 
 }

@@ -67,3 +67,15 @@ body {
 
   white-space: nowrap;
 }
+
+.labels-yellow {
+  color: white;
+  background-color: #f3e930;
+  font-family: "Lucida Grande", "Arial", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  padding:0.2em;
+
+  white-space: nowrap;
+}

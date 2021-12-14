@@ -4,7 +4,9 @@ import "./style.css";
 
 // update for drawRoute function
 //comment the stationsCorrdinates Array and the for loop because it's useless
-
+var rect;
+var highlitedLine;
+var markers=[];
 function drawPolyAndRoute(
   LineLocations,
   stationsLocations,
@@ -47,7 +49,7 @@ function drawPolyAndRoute(
   };
 
   //Create the markers
-
+  let markersList=[]
   for (i = 0; i < stationsLocations.length; i++) {
     var positions = new google.maps.LatLng(stationsLocations[i]);
     icon["labelOrigin"] = labelOrigin[i];
@@ -65,6 +67,8 @@ function drawPolyAndRoute(
       zIndex: 999999,
       map: map,
     });
+    markersList.push(marker)
+
   }
 
   //Create the polyline that connects the markers.
@@ -76,13 +80,65 @@ function drawPolyAndRoute(
     strokeWeight: 7,
   });
 
-  LinePath.setMap(map);
-}
+  markers.push({line:LinePath,stations:markersList})
 
+  LinePath.setMap(map);
+  google.maps.event.addListener(LinePath, 'click', function(latlng) {
+    highlitedLine=LinePath;
+    
+    for (let index = 0; index < markers.length; index++) {
+      const markersList = markers[index];
+      if(markersList.line!=highlitedLine){
+        markersList.stations.map((staion)=>{
+          staion.setMap(null)
+        })
+      }
+      
+    }
+    LinePath.setOptions({zIndex: 100000});
+    rect.setMap(map);
+
+
+});
+
+}
 function initMap() {
+
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 11,
-    center: { lat: 24.731488, lng: 46.707267 },
+    center: { lat: 24.731488, lng: 46.707267 }
+  });
+  let bounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(-84.999999, -179.999999), 
+    new google.maps.LatLng(84.999999, 179.999999));
+  
+   rect = new google.maps.Rectangle({
+      bounds: bounds,
+      fillColor: "#ffffff",
+      fillOpacity: 0.6,
+      strokeWeight: 0,
+   
+      zIndex:10000
+  });
+
+
+
+
+  google.maps.event.addListener(rect, 'click', function(latlng) {
+
+    highlitedLine.setOptions({zIndex: 0});
+    rect.setMap(null);
+    for (let index = 0; index < markers.length; index++) {
+      const markersList = markers[index];
+      console.log(markersList.stations);
+        markersList.stations.map((staion)=>{
+          staion.setMap(map)
+        })
+   
+      
+    }
+  
+  
   });
 
   //blue line

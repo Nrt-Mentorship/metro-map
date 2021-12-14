@@ -56,7 +56,7 @@ function drawPolyAndRoute(
       position: positions,
       // icon: mapStyles.uavSymbolBlack,
       icon: icon,
-      labelContent: labels[i],
+      labelContent:'<i class="fas fa-train"></i>' +labels[i],
       labelAnchor: labelOrigin[i],
       labelClass: `labels-${colorName} labels`,
       labelStyle: {

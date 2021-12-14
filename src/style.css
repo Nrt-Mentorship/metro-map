@@ -13,69 +13,33 @@ body {
 }
 
 /* class to style the lables */
-.labels-purple {
+.labels {
   color: white;
-  background-color: #991a7e;
   font-family: "Lucida Grande", "Arial", sans-serif;
   font-size: 10px;
   font-weight: bold;
   text-align: center;
-  padding:0.2em;
-
-
-
+  padding: 0.3em;
   white-space: nowrap;
+  border-radius: 20px;
+}
+
+.labels-purple {
+  background-color: #97187f;
 }
 
 .labels-green {
-  color: white;
-  background-color: #52a531;
-  font-family: "Lucida Grande", "Arial", sans-serif;
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  padding:0.2em;
-
-
-
-  white-space: nowrap;
+  background-color: #51a532;
 }
-
 
 .labels-orange {
-  color: white;
-  background-color: #FFA500;
-  font-family: "Lucida Grande", "Arial", sans-serif;
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  padding:0.2em;
-
-  white-space: nowrap;
+  background-color: #ec7026;
 }
 
-
-
 .labels-red {
-  color: white;
-  background-color: #FF0000;
-  font-family: "Lucida Grande", "Arial", sans-serif;
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  padding:0.2em;
-
-  white-space: nowrap;
+  background-color: #d52f45;
 }
 
 .labels-yellow {
-  color: white;
-  background-color: #f3e930;
-  font-family: "Lucida Grande", "Arial", sans-serif;
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  padding:0.2em;
-
-  white-space: nowrap;
+  background-color: #e4d60e;
 }

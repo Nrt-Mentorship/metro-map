@@ -1,26 +1,9 @@
-import {blueLineCoordinates} from "./coordinates.js" ;
-import {blueStations} from "./coordinates.js";
-
-import {purpleLineCoordinates} from "./coordinates.js" ;
-import {purpleStations} from "./coordinates.js";
-
-import {greenLineCoordinates} from "./coordinates.js" ;
-import {greenStations} from "./coordinates.js";
-
-import {orangeLineCoordinates} from "./coordinates.js" ;
-import {orangeStations} from "./coordinates.js";
-
-import {redLineCoordinates} from "./coordinates.js" ;
-import {redStations} from "./coordinates.js";
-
-import {yellowLineCoordinates} from "./coordinates.js" ;
-import {yellowStations} from "./coordinates.js";
+import  * as coords from "./coordinates.js" ;
 
 
 import "./style.css";
 
 
-// console.log(orangeLineCoordinates)
 
 // update for drawRoute function 
 //comment the stationsCorrdinates Array and the for loop because it's useless
@@ -78,7 +61,7 @@ function drawPolyAndRoute(LineLocations, stationsLocations, labels, labelOrigin,
       icon: icon,
       labelContent: labels[i],
       labelAnchor: labelOrigin[i],
-      labelClass: "labels-" + colorName,
+      labelClass: `labels-${colorName} labels`,
       labelStyle: {
         opacity: 1,
 
@@ -129,7 +112,7 @@ function initMap() {
   //blue line
 
   const LanePath = new google.maps.Polyline({
-    path: blueLineCoordinates,
+    path: coords.blueLineCoordinates,
     geodesic: true,
     strokeColor: "#2db5e4",
     strokeOpacity: 1.0,
@@ -152,7 +135,7 @@ function initMap() {
     new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
     new google.maps.Point(10, 0)]
 
-  drawPolyAndRoute(purpleLineCoordinates, purpleStations, labels, labelOrigin, "purple", "#991a7e", map);
+  drawPolyAndRoute(coords.purpleLineCoordinates, coords.purpleStations, labels, labelOrigin, "purple", "#97187f", map);
   //----------------------
 
 
@@ -170,7 +153,7 @@ function initMap() {
     new google.maps.Point(-10, 10), new google.maps.Point(-28, -5),
     new google.maps.Point(10, 0)]
 
-  drawPolyAndRoute(greenLineCoordinates, greenStations, labels, labelOrigin, "green", "#52a531", map);
+  drawPolyAndRoute(coords.greenLineCoordinates, coords.greenStations, labels, labelOrigin, "green", "#51a532", map);
   //----------------------
 
 
@@ -196,7 +179,7 @@ function initMap() {
   ]
 
 
-  drawPolyAndRoute(orangeLineCoordinates, orangeStations, labels, labelOrigin, "orange", "#FFA500", map);
+  drawPolyAndRoute(coords.orangeLineCoordinates, coords.orangeStations, labels, labelOrigin, "orange", "#ec7026", map);
 
   //-----------------------------------------------------------------------
     // Red Line
@@ -210,7 +193,7 @@ function initMap() {
       new google.maps.Point(10, 0), new google.maps.Point(10, 0),
       new google.maps.Point(10, 0)] 
   
-    drawPolyAndRoute(redLineCoordinates, redStations, labels, labelOrigin, "red", "#FF0000", map);
+    drawPolyAndRoute(coords.redLineCoordinates, coords.redStations, labels, labelOrigin, "red", "#d52f45", map);
 
   //-----------------------------------------------------------------------
     // Yellow Line
@@ -221,7 +204,7 @@ function initMap() {
       new google.maps.Point(-30, -10),new google.maps.Point(10, -10),
       new google.maps.Point(-20, -20)]
   
-      drawPolyAndRoute(yellowLineCoordinates,yellowStations,labels,labelOrigin,"yellow","#f3e930",map);
+      drawPolyAndRoute(coords.yellowLineCoordinates,coords.yellowStations,labels,labelOrigin,"yellow","#e4d60e",map);
     
 
 }

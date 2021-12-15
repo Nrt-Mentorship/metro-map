@@ -98,7 +98,7 @@ function drawPolyAndRoute(
 
     google.maps.event.addListener(marker, 'click', function() {
       map.panTo(this.getPosition());
-      map.setZoom(13);
+      map.setZoom(19);
     });
     markersList.push(marker)
 

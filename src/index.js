@@ -10,7 +10,7 @@ var highlitedLine;
 var markers=[];
 var map;
 var mcOptions = {
-  imagePath:'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+  //imagePath:'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
    ignoreHidden: true 
  
  
@@ -152,6 +152,26 @@ function initMap() {
     center: { lat: 24.731488, lng: 46.707267 }
   });
   markerCluster = new MarkerClusterer(map, [],mcOptions  );
+
+
+  
+markerCluster.setCalculator(function (markers, numStyles) {
+  var index = 0;
+  var count = markers.length;
+  var dv = count;
+  while (dv !== 0) {
+      dv = parseInt(dv / 10, 10);
+      index++;
+  }
+
+  index = Math.min(index, numStyles);
+  return {
+      text: "", // set to empty string
+      index: index
+  };
+});
+markerCluster.setGridSize(18);
+
   let bounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(-84.999999, -179.999999), 
     new google.maps.LatLng(84.999999, 179.999999));
@@ -186,7 +206,7 @@ function initMap() {
 
     markerCluster.setMaxZoom(15)
    
-    markerCluster.setGridSize(60);
+    markerCluster.setGridSize(18);
     markerCluster.repaint();
   
   

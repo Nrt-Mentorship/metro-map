@@ -3,7 +3,6 @@ import * as coords from "./coordinates.js";
 import "./style.css";
 
 // update for drawRoute function
-//comment the stationsCorrdinates Array and the for loop because it's useless
 var rect;
 var highlitedLine;
 var markers=[];
@@ -28,21 +27,7 @@ function drawPolyAndRoute(
 ) {
   //Create an empty array to store the coordinates from the JSON object above.
   var coordinates = [];
-  // var stationsCoordinates = [];
-
-  // //For each line in the JSON object, pull out the longitude and latitude and add to the coordinates array.
-
-  // for (i = 0; i < stationsLocations.length; i++) {
-
-  // var longitudes = stationsLocations[i].lng
-
-  // var latitudes = stationsLocations[i].lat
-
-  // stationsCoordinates.push({
-  //   lat: latitudes,
-  //   lng: longitudes
-  // });
-  // }
+ 
 
   // Define a bound from the given coordinates from which we can center the map.
 
@@ -77,6 +62,7 @@ function drawPolyAndRoute(
       zIndex: 999999,
       map: map,
     });
+    markerLabels.push(marker)
 
 
     google.maps.event.addListener(marker, 'click', function() {
@@ -353,6 +339,75 @@ function initMap() {
     "#e4d60e",
     map
   );
+
+  
+    // add all stations array to one array 
+    allCooreds = coords.purpleStations.concat(coords.greenStations,coords.orangeStations,coords.redStations,coords.yellowStations);
+
+
+    onMouseMove(map)
+  }
+  // enable onMouseMove listner
+  function onMouseMove(map){
+    
+    map.addListener("mousemove", (e) => {
+     // if infowindow enabled close it
+      if(infowindow != undefined && infowindow.position != undefined){
+        infowindow.close()
+      }else {
+  
+       
+    }
+    
+     var i =0;
+     var sLat;
+     var sLng;
+     var eLat=e.latLng.lat();
+     var eLng= e.latLng.lng();
+  
+  
+      if(    window.getComputedStyle(e.domEvent.target)["cursor"].toString().includes("poi")){
+  
+      while(i<allCooreds.length){
+  
+        sLat=Math.floor(allCooreds[i].lat*1000)/1000;
+        sLng=Math.floor(allCooreds[i].lng*1000)/1000;
+        
+        console.log("e-s"+i+": " + (eLat - sLat <=0.01 && eLat -sLat >=-0.01 ) +","+ (eLng - sLng <=0.01 && eLng -sLng >=-0.01 ))
+       
+        if((eLat - sLat <=0.02 && eLat -sLat >=-0.02 ) && (eLng - sLng <=0.02 && eLng -sLng >=-0.02 ) ) {
+          console.log("match")
+       
+          placeMarkerAndPanTo(e.latLng, map,i,e);
+          return;
+  
+          }
+  
+        
+        i++;
+      }
+      }
+      
+    });
+  }
+  //open label on mouse over station
+  function placeMarkerAndPanTo(latLng, map,i,e) {
+  
+   
+  
+  
+    infowindow = new google.maps.InfoWindow({
+      
+      content: "index: "+i,
+    });
+  
+    infowindow.open({
+      anchor: markerLabels[i],
+      map,
+      shouldFocus: false,
+    });
+    console.log("after",infowindow.position)
+  
 }
 
 export { initMap };

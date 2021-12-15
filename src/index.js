@@ -1,8 +1,6 @@
 import * as coords from "./coordinates.js";
 
 import "./style.css";
-var markerLabels=[]
-var allCooreds=[];
 
 var infowindow;
 
@@ -50,6 +48,7 @@ function drawPolyAndRoute(
   //Create the markers
   let markersList=[]
   for (i = 0; i < stationsLocations.length; i++) {
+    var labelC=labels[i];
     var positions = new google.maps.LatLng(stationsLocations[i]);
     icon["labelOrigin"] = labelOrigin[i];
 
@@ -66,7 +65,26 @@ function drawPolyAndRoute(
       zIndex: 999999,
       map: map,
     });
-    markerLabels.push(marker)
+    
+    //on mouseover marker
+    marker.addListener( 'mouseover', function() {
+      if(infowindow != undefined && infowindow.position != undefined){
+        infowindow.close();
+
+      }
+      infowindow = new google.maps.InfoWindow({
+      
+        content: this.labelContent,
+      });
+  
+      infowindow.open({
+        anchor: this,
+        map,
+        shouldFocus: false,
+      });
+    
+
+    });
 
 
     google.maps.event.addListener(marker, 'click', function() {
@@ -349,69 +367,7 @@ function initMap() {
     allCooreds = coords.purpleStations.concat(coords.greenStations,coords.orangeStations,coords.redStations,coords.yellowStations);
 
 
-    onMouseMove(map)
   }
-  // enable onMouseMove listner
-  function onMouseMove(map){
-    
-    map.addListener("mousemove", (e) => {
-     // if infowindow enabled close it
-      if(infowindow != undefined && infowindow.position != undefined){
-        infowindow.close()
-      }else {
-  
-       
-    }
-    
-     var i =0;
-     var sLat;
-     var sLng;
-     var eLat=e.latLng.lat();
-     var eLng= e.latLng.lng();
-  
-  
-      if(    window.getComputedStyle(e.domEvent.target)["cursor"].toString().includes("poi")){
-  
-      while(i<allCooreds.length){
-  
-        sLat=Math.floor(allCooreds[i].lat*1000)/1000;
-        sLng=Math.floor(allCooreds[i].lng*1000)/1000;
-        
-        console.log("e-s"+i+": " + (eLat - sLat <=0.01 && eLat -sLat >=-0.01 ) +","+ (eLng - sLng <=0.01 && eLng -sLng >=-0.01 ))
-       
-        if((eLat - sLat <=0.02 && eLat -sLat >=-0.02 ) && (eLng - sLng <=0.02 && eLng -sLng >=-0.02 ) ) {
-          console.log("match")
-       
-          placeMarkerAndPanTo(e.latLng, map,i,e);
-          return;
-  
-          }
-  
-        
-        i++;
-      }
-      }
-      
-    });
-  }
-  //open label on mouse over station
-  function placeMarkerAndPanTo(latLng, map,i,e) {
-  
-   
-  
-  
-    infowindow = new google.maps.InfoWindow({
-      
-      content: "index: "+i,
-    });
-  
-    infowindow.open({
-      anchor: markerLabels[i],
-      map,
-      shouldFocus: false,
-    });
-    console.log("after",infowindow.position)
-  
-}
+ 
 
 export { initMap };

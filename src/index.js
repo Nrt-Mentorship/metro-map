@@ -1,6 +1,10 @@
 import * as coords from "./coordinates.js";
 
 import "./style.css";
+var markerLabels=[]
+var allCooreds=[];
+
+var infowindow;
 
 // update for drawRoute function
 var rect;

@@ -9,6 +9,15 @@ var rect;
 var highlitedLine;
 var markers=[];
 var map;
+var mcOptions = {
+  imagePath:'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+   ignoreHidden: true 
+ 
+ 
+ }
+ var markerCluster ;
+var allCooreds;
+
 
 function zoomToObject(obj){
   var bounds = new google.maps.LatLngBounds();
@@ -94,7 +103,7 @@ function drawPolyAndRoute(
     markersList.push(marker)
 
   }
-
+  markerCluster.addMarkers(markersList, true);
   //Create the polyline that connects the markers.
   var LinePath = new google.maps.Polyline({
     path: LineLocations,
@@ -113,18 +122,24 @@ function drawPolyAndRoute(
     highlitedLine=LinePath;
     zoomToObject(LinePath);
 
-    
+    markerCluster.clearMarkers();
     for (let index = 0; index < markers.length; index++) {
       const markersList = markers[index];
-      if(markersList.line!=highlitedLine){
+      if(markersList.line==highlitedLine){
         markersList.stations.map((staion)=>{
-          staion.setMap(null)
+          markerCluster.addMarker(staion);
         })
       }
       
     }
+
+    markerCluster.setMaxZoom(1)
+   
+    markerCluster.setGridSize(1);
+    markerCluster.repaint();
     LinePath.setOptions({zIndex: 100000});
     rect.setMap(map);
+
 
 
 });
@@ -136,6 +151,7 @@ function initMap() {
     zoom: 11,
     center: { lat: 24.731488, lng: 46.707267 }
   });
+  markerCluster = new MarkerClusterer(map, [],mcOptions  );
   let bounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(-84.999999, -179.999999), 
     new google.maps.LatLng(84.999999, 179.999999));
@@ -155,6 +171,7 @@ function initMap() {
   google.maps.event.addListener(rect, 'click', function(latlng) {
 
     highlitedLine.setOptions({zIndex: 0});
+    markerCluster.clearMarkers();
     rect.setMap(null);
     for (let index = 0; index < markers.length; index++) {
       const markersList = markers[index];
@@ -162,9 +179,15 @@ function initMap() {
         markersList.stations.map((staion)=>{
           staion.setMap(map)
         })
+        markerCluster.addMarkers(markersList.stations,true);
    
       
     }
+
+    markerCluster.setMaxZoom(15)
+   
+    markerCluster.setGridSize(60);
+    markerCluster.repaint();
   
   
   });

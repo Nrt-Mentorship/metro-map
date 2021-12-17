@@ -62,7 +62,7 @@ function drawPolyAndRoute(
     var positions = new google.maps.LatLng(stationsLocations[i]);
     icon["labelOrigin"] = labelOrigin[i];
 
-    var marker = new MarkerWithLabel({
+    var marker =new google.maps.Marker({
       position: positions,
       // icon: mapStyles.uavSymbolBlack,
       icon: icon,

@@ -437,7 +437,7 @@ markerCluster.setGridSize(18);
   }
  
 function getNearby(lat,lng){
-  fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&key=AIzaSyDcETWUYJbLUQR5rGH0iG41HXuXfMVnNdw&type=restaurant`)
+  fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&key=YOUR_API_KEY&type=restaurant`)
   .then(response => response.json()
   .then(res => {
     let nearby = res.results;
@@ -446,7 +446,7 @@ function getNearby(lat,lng){
         let ref = element.photos[0].photo_reference;
         document.querySelector('.nearby_place').innerHTML += 
         `
-          <img class="rig-img" src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=AIzaSyDcETWUYJbLUQR5rGH0iG41HXuXfMVnNdw" alt="Pic From Google">
+          <img class="rig-img" src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=YOUR_API_KEY" alt="Pic From Google">
           <div class="place_info">
             <h4>${element.name}</h4>
             <span>${element.rating} <i class="fas fa-star"></i>  (${element.user_ratings_total})</span>

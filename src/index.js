@@ -17,6 +17,7 @@ var mcOptions = {
  }
  var markerCluster ;
 var allCooreds;
+var allStations=[];
 
 
 function zoomToObject(obj){
@@ -95,10 +96,33 @@ function drawPolyAndRoute(
 
     });
 
+    //add all the stations to allStations array with the locations
+    allStations.push({"station_name": marker.labelContent.slice(-3).toUpperCase(), "location": marker.getPosition()})
 
     google.maps.event.addListener(marker, 'click', function() {
       map.panTo(this.getPosition());
       map.setZoom(19);
+
+      // search for the clicked station
+      let station = allStations.findIndex(x => x.station_name ===this.labelContent.slice(-3).toUpperCase());
+      //get places near the station
+      getNearby(allStations[station].location.lat(),allStations[station].location.lng());
+      //show the sidebar with the station details
+      document.querySelector('.sidenav').style.display = 'block';
+      document.getElementById('map').classList.add('main');
+      document.querySelector('.sidenav_content').innerHTML = 
+      `<img src="https://www.arabianbusiness.com/cloud/2021/09/14/hkaPPUM3-Riyadh-Metro-by-Alstom.jpg" alt="" class="station_img">
+        <h1>${this.labelContent.slice(-3).toUpperCase()}</h1>
+        <p>metro station</p>
+        <hr>
+        <h3>Near this location</h3>
+        <div class="nearby_place">
+          
+        </div>`
+      document.querySelector('.icon').addEventListener('click', () => {
+        document.querySelector('.sidenav').style.display = 'none';
+        document.getElementById('map').classList.remove('main');
+      })
     });
     markersList.push(marker)
 
@@ -412,5 +436,29 @@ markerCluster.setGridSize(18);
 
   }
  
+function getNearby(lat,lng){
+  fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1500&key=AIzaSyDcETWUYJbLUQR5rGH0iG41HXuXfMVnNdw&type=restaurant`)
+  .then(response => response.json()
+  .then(res => {
+    let nearby = res.results;
+    nearby.forEach((element) => {
+      if (element.hasOwnProperty('photos') == true){
+        let ref = element.photos[0].photo_reference;
+        document.querySelector('.nearby_place').innerHTML += 
+        `
+          <img class="rig-img" src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=AIzaSyDcETWUYJbLUQR5rGH0iG41HXuXfMVnNdw" alt="Pic From Google">
+          <div class="place_info">
+            <h4>${element.name}</h4>
+            <span>${element.rating} <i class="fas fa-star"></i>  (${element.user_ratings_total})</span>
+            <span>${element.types[0]}</span>
+            <span><i class="fas fa-map-marker-alt"></i> ${element.vicinity}</span>
+          </div>
+          <hr>  
+        `
+      }
+    }); 
+  })
+  );
+}
 
 export { initMap };

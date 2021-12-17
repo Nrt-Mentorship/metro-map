@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 #map {
@@ -43,3 +44,85 @@ body {
 .labels-yellow {
   background-color: #e4d60e;
 }
+
+/* sidenav */
+.sidenav {
+  display: none;
+  height: 100%; 
+  width: 400px; 
+  position: fixed; 
+  z-index: 1;
+  top: 0; 
+  left: 0;
+  background-color: rgb(255, 255, 255); 
+  overflow-x: hidden; 
+  padding-top: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.sidenav .icon{
+  float: right;
+  font-size: 2rem;
+  margin-right: 20px;
+}
+
+.station_img{
+  width: 100%;
+  object-fit: contain;
+  margin: 10px 0px;
+}
+
+.sidenav_content h1,p{
+  padding-left: 20px;
+}
+
+.sidenav_content h3{
+  text-align: center;
+}
+
+
+.nearby_place img{
+  object-fit: cover;
+  object-position: center;
+  height: 150px;
+  width: 100%;
+}
+
+.nearby_place h4,span{
+  padding: 0px 20px;
+}
+
+.place_info{
+  display: flex;
+  flex-direction: column;
+  color: rgb(74, 74, 74);
+}
+
+.place_info span{
+  margin-bottom: 5px;
+}
+
+.fa-star{
+  color: gold;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidenav::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.sidenav {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+.main {
+  margin-left: 400px;
+}
+
+@media screen and (max-width: 480px) {
+  .sidenav{
+    width: 100%;
+  }
+ }

@@ -99,9 +99,20 @@ function drawPolyAndRoute(
     //add all the stations to allStations array with the locations
     allStations.push({"station_name": marker.labelContent.slice(-3).toUpperCase(), "location": marker.getPosition()})
 
+    var zoomLevel;
     google.maps.event.addListener(marker, 'click', function() {
-      map.panTo(this.getPosition());
-      map.setZoom(19);
+      // map.panTo(this.getPosition());
+      // map.setZoom(19);
+
+      zoomLevel = map.getZoom();
+      if (zoomLevel <= 11) {
+        map.panTo(this.getPosition());
+        map.setZoom(19);
+      } else {
+          var center = new google.maps.LatLng(24.731488, 46.707267);
+          map.setCenter(center);
+          map.setZoom(11);
+      }
 
       // search for the clicked station
       let station = allStations.findIndex(x => x.station_name ===this.labelContent.slice(-3).toUpperCase());

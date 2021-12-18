@@ -16,7 +16,6 @@ var mcOptions = {
  
  }
  var markerCluster ;
-var allCooreds;
 var allStations=[];
 
 
@@ -45,14 +44,14 @@ function drawPolyAndRoute(
 
   //Create the svg marker icon
   var icon = {
-    path: google.maps.SymbolPath.CIRCLE,
+    path: google.maps.SymbolPath.CIRCLE ,
     strokeOpacity: 1,
     fillOpacity: 1,
-    scale: 7,
+    scale: 3,
     fillColor: "#ffffff",
     strokeColor: color,
     strokeOpacity: 1.0,
-    strokeWeight: 5,
+    strokeWeight: 2,
   };
 
   //Create the markers
@@ -62,11 +61,11 @@ function drawPolyAndRoute(
     var positions = new google.maps.LatLng(stationsLocations[i]);
     icon["labelOrigin"] = labelOrigin[i];
 
-    var marker =new google.maps.Marker({
+    var marker =new MarkerWithLabel({
       position: positions,
       // icon: mapStyles.uavSymbolBlack,
       icon: icon,
-      labelContent:'<i class="fas fa-train"></i>' +labels[i],
+      labelContent:`<i class="fas fa-train"></i> ${labels[i]}`,
       labelAnchor: labelOrigin[i],
       labelClass: `labels-${colorName} labels`,
       labelStyle: {
@@ -76,26 +75,7 @@ function drawPolyAndRoute(
       map: map,
     });
     
-    //on mouseover marker
-    marker.addListener( 'mouseover', function() {
-      if(infowindow != undefined && infowindow.position != undefined){
-        infowindow.close();
-
-      }
-      infowindow = new google.maps.InfoWindow({
-      
-        content: this.labelContent,
-      });
-  
-      infowindow.open({
-        anchor: this,
-        map,
-        shouldFocus: false,
-      });
-    
-
-    });
-
+   
     //add all the stations to allStations array with the locations
     allStations.push({"station_name": marker.labelContent.slice(-3).toUpperCase(), "location": marker.getPosition()})
 
@@ -139,13 +119,15 @@ function drawPolyAndRoute(
 
   }
   markerCluster.addMarkers(markersList, true);
+
+  
   //Create the polyline that connects the markers.
   var LinePath = new google.maps.Polyline({
     path: LineLocations,
     geodesic: true,
     strokeColor: color,
     strokeOpacity: 1,
-    strokeWeight: 7,
+    strokeWeight: 3,
   });
 
   markers.push({line:LinePath,stations:markersList})
@@ -441,10 +423,7 @@ markerCluster.setGridSize(18);
   );
 
   
-    // add all stations array to one array 
-    allCooreds = coords.purpleStations.concat(coords.greenStations,coords.orangeStations,coords.redStations,coords.yellowStations);
-
-
+   
   }
  
 function getNearby(lat,lng){
@@ -470,6 +449,8 @@ function getNearby(lat,lng){
     }); 
   })
   );
+
+
 }
 
 export { initMap };

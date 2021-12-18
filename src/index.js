@@ -18,7 +18,29 @@ var mcOptions = {
  var markerCluster ;
 var allStations=[];
 
+function innerCicle(pos,color,label){
+  var    icon = {
+    path: google.maps.SymbolPath.CIRCLE ,
 
+    fillOpacity: 1,
+    scale: 4,
+    fillColor: color,
+    strokeColor:"#ffffff",
+    strokeWeight:1
+   
+  };
+  var marker =new google.maps.Marker({
+    position: pos,
+    // icon: mapStyles.uavSymbolBlack,
+    icon: icon,
+    labelContent:label,
+    zIndex: 9999999,
+    map: map,
+  });
+  return marker
+  
+
+}
 function zoomToObject(obj){
   var bounds = new google.maps.LatLngBounds();
   var points = obj.getPath().getArray();
@@ -43,43 +65,76 @@ function drawPolyAndRoute(
   // Define a bound from the given coordinates from which we can center the map.
 
   //Create the svg marker icon
-  var icon = {
-    path: google.maps.SymbolPath.CIRCLE ,
-    strokeOpacity: 1,
-    fillOpacity: 1,
-    scale: 3,
-    fillColor: "#ffffff",
-    strokeColor: color,
-    strokeOpacity: 1.0,
-    strokeWeight: 2,
-  };
+  let icon;
+
+  
 
   //Create the markers
   let markersList=[]
   for (i = 0; i < stationsLocations.length; i++) {
     var labelC=labels[i];
     var positions = new google.maps.LatLng(stationsLocations[i]);
-    icon["labelOrigin"] = labelOrigin[i];
+    if (stationsLocations[i].major){
+      icon = {
+        path: google.maps.SymbolPath.CIRCLE ,
+        strokeOpacity: 1,
+        fillOpacity: 1,
+        scale: 7,
+        fillColor: "#ffffff",
+        strokeColor: stationsLocations[i].stroke,
+        strokeOpacity: 1.0,
+        strokeWeight: 4,
+      };
+      icon["labelOrigin"] = labelOrigin[i];
 
-    var marker =new MarkerWithLabel({
-      position: positions,
-      // icon: mapStyles.uavSymbolBlack,
-      icon: icon,
-      labelContent:`<i class="fas fa-train"></i> ${labels[i]}`,
-      labelAnchor: labelOrigin[i],
-      labelClass: `labels-${colorName} labels`,
-      labelStyle: {
-        opacity: 1,
-      },
-      zIndex: 999999,
-      map: map,
-    });
+      var outeRmarker =new MarkerWithLabel({
+        position: positions,
+        // icon: mapStyles.uavSymbolBlack,
+        icon: icon,
+        labelContent:`<i class="fas fa-train"></i> ${labels[i]}`,
+        labelAnchor: labelOrigin[i],
+        labelClass: `labels-${colorName} labels`,
+        zIndex: 999999,
+        map: map,
+      });
+      var marker=innerCicle(stationsLocations[i],stationsLocations[i].fill,`<i class="fas fa-train"></i> ${labels[i]}`)
+
+    }else{
+      icon = {
+        path: google.maps.SymbolPath.CIRCLE ,
+        strokeOpacity: 1,
+        fillOpacity: 1,
+        scale: 3,
+        fillColor: "#ffffff",
+        strokeColor: color,
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+      };
+      icon["labelOrigin"] = labelOrigin[i];
+
+      var marker =new MarkerWithLabel({
+        position: positions,
+        // icon: mapStyles.uavSymbolBlack,
+        icon: icon,
+        labelContent:`<i class="fas fa-train"></i> ${labels[i]}`,
+        labelAnchor: labelOrigin[i],
+        labelClass: `labels-${colorName} labels`,
+        labelStyle: {
+          opacity: 1,
+        },
+        zIndex: 999999,
+        map: map,
+      });
+    }
+
+
     
    
     //add all the stations to allStations array with the locations
     allStations.push({"station_name": marker.labelContent.slice(-3).toUpperCase(), "location": marker.getPosition()})
 
     var zoomLevel;
+
     google.maps.event.addListener(marker, 'click', function() {
       // map.panTo(this.getPosition());
       // map.setZoom(19);
@@ -115,7 +170,19 @@ function drawPolyAndRoute(
         document.getElementById('map').classList.remove('main');
       })
     });
-    markersList.push(marker)
+
+
+
+
+
+
+
+
+    
+    if (!stationsLocations[i].major){
+      markersList.push(marker)
+
+    }
 
   }
   markerCluster.addMarkers(markersList, true);
@@ -130,12 +197,15 @@ function drawPolyAndRoute(
     strokeWeight: 3,
   });
 
+
   markers.push({line:LinePath,stations:markersList})
 
   LinePath.setMap(map);
   
 
+
   google.maps.event.addListener(LinePath, 'click', function(latlng) {
+
     highlitedLine=LinePath;
     zoomToObject(LinePath);
 

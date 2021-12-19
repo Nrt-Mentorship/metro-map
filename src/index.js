@@ -188,7 +188,10 @@ function initMap() {
   });
   markerCluster = new MarkerClusterer(map, [],mcOptions  );
 
-
+  // view map information button
+  const mapInfoControlDiv = document.createElement("div");
+  mapInfoControl(mapInfoControlDiv);
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(mapInfoControlDiv);
   
 markerCluster.setCalculator(function (markers, numStyles) {
   var index = 0;
@@ -470,6 +473,48 @@ function getNearby(lat,lng){
     }); 
   })
   );
+}
+
+function mapInfoControl(controlDiv) {
+  // Set CSS for the control border.
+  const controlUI = document.createElement("div");
+
+  controlUI.style.backgroundColor = "#fff";
+  controlUI.style.border = "2px solid #fff";
+  controlUI.style.borderRadius = "3px";
+  controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+  controlUI.style.cursor = "pointer";
+  controlUI.style.marginTop = "8px";
+  controlUI.style.marginBottom = "22px";
+  controlUI.style.textAlign = "center";
+  controlUI.title = "Click to recenter the map";
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  const controlText = document.createElement("div");
+
+  controlText.style.color = "rgb(25,25,25)";
+  controlText.style.fontFamily = "Roboto,Arial,sans-serif";
+  controlText.style.fontSize = "16px";
+  controlText.style.lineHeight = "38px";
+  controlText.style.paddingLeft = "5px";
+  controlText.style.paddingRight = "5px";
+  controlText.innerHTML = "View map information";
+  controlUI.appendChild(controlText);
+
+  controlUI.addEventListener("click", () => {
+    let mapInfo = document.querySelector('.map_info');
+    if(mapInfo.className.match('hidden')) {
+      mapInfo.className = 'map_info';
+      document.getElementById('map').style.height = "88vh";
+      controlText.innerHTML = "Hide map information";
+    }
+    else {
+      mapInfo.className = 'map_info hidden';
+      document.getElementById('map').style.height = "100%";
+      controlText.innerHTML = "View map information";
+    }
+  });
 }
 
 export { initMap };

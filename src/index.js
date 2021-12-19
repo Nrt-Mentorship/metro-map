@@ -2,9 +2,11 @@ import * as coords from "./coordinates.js";
 
 import "./style.css";
 
-var infowindow;
+var zoom;
 
 // update for drawRoute function
+var markersList = []
+var lines = []
 var rect;
 var highlitedLine;
 var markers=[];
@@ -70,7 +72,7 @@ function drawPolyAndRoute(
   
 
   //Create the markers
-  let markersList=[]
+   
   for (i = 0; i < stationsLocations.length; i++) {
     var labelC=labels[i];
     var positions = new google.maps.LatLng(stationsLocations[i]);
@@ -184,8 +186,10 @@ function drawPolyAndRoute(
 
     }
 
+ 
+
   }
-  markerCluster.addMarkers(markersList, true);
+  // markerCluster.addMarkers(markersList, true);
 
   
   //Create the polyline that connects the markers.
@@ -196,6 +200,7 @@ function drawPolyAndRoute(
     strokeOpacity: 1,
     strokeWeight: 3,
   });
+  lines.push(LinePath)
 
 
   markers.push({line:LinePath,stations:markersList})
@@ -220,6 +225,8 @@ function drawPolyAndRoute(
       
     }
 
+    
+
     markerCluster.setMaxZoom(1)
    
     markerCluster.setGridSize(1);
@@ -230,6 +237,7 @@ function drawPolyAndRoute(
 
 
 });
+
 
 }
 function initMap() {
@@ -317,19 +325,19 @@ markerCluster.setGridSize(18);
   //------------------------------------------------------------------
   //purple line
 
-  var labels = ["3j1", "6g2", "2e1", "6e1", "6d2", "6d1", "4c1", "4b1", "4a1"];
+  var labels = ["3j1", "3H1", "6g2", "2e1", "6e1", "6d2", "6d1", "4c1", "4b1", "4a1"];
 
   // offset to postion the lables
   var labelOrigin = [
     new google.maps.Point(10, 0),
-    new google.maps.Point(12, -10),
+    new google.maps.Point(5, -10),
     new google.maps.Point(-20, 10),
     new google.maps.Point(12, -5),
-    new google.maps.Point(-10, 12),
+    new google.maps.Point(-10, -20),
     new google.maps.Point(-10, -23),
     new google.maps.Point(-10, 10),
-    new google.maps.Point(-28, -5),
-    new google.maps.Point(10, 0),
+    new google.maps.Point(-10, -20),
+    new google.maps.Point(5, -10),
   ];
 
   drawPolyAndRoute(
@@ -349,13 +357,13 @@ markerCluster.setGridSize(18);
 
   // offset to postion the lables
   var labelOrigin = [
-    new google.maps.Point(10, 0),
-    new google.maps.Point(12, -10),
-    new google.maps.Point(-30, 10),
-    new google.maps.Point(12, -5),
-    new google.maps.Point(-25, 12),
-    new google.maps.Point(-10, -23),
-    new google.maps.Point(-10, 10),
+    new google.maps.Point(7, -10),
+    new google.maps.Point(10, -10),
+    new google.maps.Point(4, -3),
+    new google.maps.Point(5, -5),
+    new google.maps.Point(3, -4),
+    new google.maps.Point(3, -10),
+    new google.maps.Point(-28, 0),
     new google.maps.Point(-28, -5),
     new google.maps.Point(10, 0),
   ];
@@ -382,14 +390,15 @@ markerCluster.setGridSize(18);
     "3C2",
     "3D3",
     "3D1",
-    "???",
+    "3D2",
     "3E1",
     "3E2",
     "3E3",
     "3E4",
     "3E5",
     "3E6",
-    "3F2",
+    "3E2",
+    "3F1",
     "3G1",
     "3G2",
     "3K2",
@@ -398,24 +407,25 @@ markerCluster.setGridSize(18);
 
   // offset to postion the lables
   var labelOrigin = [
-    new google.maps.Point(-10, -30),
-    new google.maps.Point(-5, 12),
-    new google.maps.Point(0, -25),
-    new google.maps.Point(0, 10),
-    new google.maps.Point(-10, 12),
-    new google.maps.Point(-10, -25),
-    new google.maps.Point(-25, 10),
-    new google.maps.Point(-20, -30),
-    new google.maps.Point(5, 10),
-    new google.maps.Point(-40, -10),
-    new google.maps.Point(-10, 15),
-    new google.maps.Point(5, 15),
-    new google.maps.Point(15, 5),
-    new google.maps.Point(10, 0),
-    new google.maps.Point(-20, -30),
+    new google.maps.Point(-10, -18),
+    new google.maps.Point(-10, 5),
+    new google.maps.Point(3, -13),
+    new google.maps.Point(0, 2),
+    new google.maps.Point(-10, 7),
+    new google.maps.Point(-15, -20),
+    new google.maps.Point(-15, 7),
+    new google.maps.Point(-20, -17),
+    new google.maps.Point(3, 0),
+    new google.maps.Point(-28 , -15),
+    new google.maps.Point(3, 3),
+    new google.maps.Point(2, -0),
+    new google.maps.Point(6, -1),
+    new google.maps.Point(5, -7),
+    new google.maps.Point(7, -3),
+    new google.maps.Point(-20, -18),
     new google.maps.Point(-10, 10),
     new google.maps.Point(-10, 10),
-    new google.maps.Point(-10, -30),
+    new google.maps.Point(-20, -17),
     new google.maps.Point(10, -5),
   ];
 
@@ -447,19 +457,19 @@ markerCluster.setGridSize(18);
     "2A1",
   ];
   var labelOrigin = [
-    new google.maps.Point(-20, 10),
-    new google.maps.Point(3, 10),
-    new google.maps.Point(-10, 15),
-    new google.maps.Point(12, 10),
-    new google.maps.Point(-10, 12),
-    new google.maps.Point(-10, -23),
+    new google.maps.Point(-10, 5),
+    new google.maps.Point(0, 3),
+    new google.maps.Point(0, 5),
+    new google.maps.Point(-30, -11),
+    new google.maps.Point(-18, 5),
+    new google.maps.Point(-10, -20),
     new google.maps.Point(-10, 10),
     new google.maps.Point(-28, -15),
     new google.maps.Point(10, 0),
-    new google.maps.Point(10, 0),
-    new google.maps.Point(10, 0),
-    new google.maps.Point(10, 0),
-    new google.maps.Point(10, 0),
+    new google.maps.Point(-10, -20),
+    new google.maps.Point(0, 3),
+    new google.maps.Point(-18, -18),
+    new google.maps.Point(0, 2),
   ];
 
   drawPolyAndRoute(
@@ -476,11 +486,11 @@ markerCluster.setGridSize(18);
   // Yellow Line
   var labels = ["4g3", "4g2", "4g1", "4e2", "4e1", "4d1", "4c2"];
   var labelOrigin = [
-    new google.maps.Point(-30, 0),
-    new google.maps.Point(10, -10),
-    new google.maps.Point(-30, 10),
-    new google.maps.Point(10, -10),
-    new google.maps.Point(-30, -10),
+    new google.maps.Point(-30, -5),
+    new google.maps.Point(5, -6),
+    new google.maps.Point(-22, 5),
+    new google.maps.Point(-30, -5),
+    new google.maps.Point(5, -10),
     new google.maps.Point(10, -10),
     new google.maps.Point(-20, -20),
   ];
@@ -494,6 +504,29 @@ markerCluster.setGridSize(18);
     "#e4d60e",
     map
   );
+
+  map.addListener("zoom_changed",function (){
+   console.log( document.querySelectorAll(`.icon`)[0].style.scale);
+    document.querySelectorAll(`.icon`)[0].style.scale=20;
+
+    document.querySelectorAll(`.icon`)[0].style.strokeWidth=7;
+    console.log( document.querySelectorAll(`.icon`)[0].style.scale);
+    console.log( document.querySelectorAll(`.icon`)[0].style.width);
+
+
+
+  })
+
+  map.addListener( 'zoom_changed', function(latlng) {
+    alert("zoom")
+    zoom =map.getZoom()-8;
+
+    // if(map.getZoom() >14){
+    markersList.map(scaleforStation)
+    lines.map(scaleForLine)
+    // }
+
+  });
 
   
    
@@ -522,6 +555,7 @@ function getNearby(lat,lng){
     }); 
   })
   );
+
 
 
 }
@@ -566,6 +600,34 @@ function mapInfoControl(controlDiv) {
       controlText.innerHTML = "View map information";
     }
   });
+function scaleforStation(m){
+  console.log("z",zoom)
+  m.setIcon({
+    path: google.maps.SymbolPath.CIRCLE ,
+    strokeOpacity: 1,
+    fillOpacity: 1,
+    scale: zoom ,
+    fillColor: "#fff",
+    strokeColor: m.icon[`strokeColor`],
+    strokeOpacity: 1.0,
+    strokeWeight: zoom,
+  }
+  )
+
+}
+function scaleForLine(l){
+console.log(`l`,l)
+
+l.setOptions({
+  
+  geodesic: true,
+  strokeColor: l["strokeColor"],
+  strokeOpacity: 1,
+  strokeWeight: zoom,
+})
+
+
+}
 }
 
 export { initMap };

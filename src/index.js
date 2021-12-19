@@ -189,7 +189,7 @@ function drawPolyAndRoute(
  
 
   }
-  // markerCluster.addMarkers(markersList, true);
+ markerCluster.addMarkers(markersList, true);
 
   
   //Create the polyline that connects the markers.
@@ -206,6 +206,8 @@ function drawPolyAndRoute(
   markers.push({line:LinePath,stations:markersList})
 
   LinePath.setMap(map);
+
+
   
 
 
@@ -325,17 +327,19 @@ markerCluster.setGridSize(18);
   //------------------------------------------------------------------
   //purple line
 
-  var labels = ["3j1", "3H1", "6g2", "2e1", "6e1", "6d2", "6d1", "4c1", "4b1", "4a1"];
+  var labels = ["3j1", "6h1", "6g2","6g1", "2e1", "6e1","6d2",  "6d1", "4c1", "4b1", "4a1"];
 
   // offset to postion the lables
   var labelOrigin = [
     new google.maps.Point(10, 0),
     new google.maps.Point(5, -10),
-    new google.maps.Point(-20, 10),
+    new google.maps.Point(10, 0),
     new google.maps.Point(12, -5),
-    new google.maps.Point(-10, -20),
+    new google.maps.Point(9, 0),
     new google.maps.Point(-10, -23),
-    new google.maps.Point(-10, 10),
+    new google.maps.Point(-10, 5),
+    new google.maps.Point(-10, -20),
+    new google.maps.Point(0, 5),
     new google.maps.Point(-10, -20),
     new google.maps.Point(5, -10),
   ];
@@ -505,7 +509,7 @@ markerCluster.setGridSize(18);
     map
   );
 
-  map.addListener("zoom_changed",function (){
+ /* map.addListener("zoom_changed",function (){
    console.log( document.querySelectorAll(`.icon`)[0].style.scale);
     document.querySelectorAll(`.icon`)[0].style.scale=20;
 
@@ -515,18 +519,9 @@ markerCluster.setGridSize(18);
 
 
 
-  })
+  })*/
 
-  map.addListener( 'zoom_changed', function(latlng) {
-    alert("zoom")
-    zoom =map.getZoom()-8;
 
-    // if(map.getZoom() >14){
-    markersList.map(scaleforStation)
-    lines.map(scaleForLine)
-    // }
-
-  });
 
   
    

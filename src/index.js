@@ -3,9 +3,11 @@ import * as coords from "./coordinates.js";
 import "./style.css";
 
 var zoom;
+var zoomMajor;
 
 // update for drawRoute function
 var markersList = []
+var majorStation=[];
 var lines = []
 var rect;
 var highlitedLine;
@@ -184,6 +186,9 @@ function drawPolyAndRoute(
     if (!stationsLocations[i].major){
       markersList.push(marker)
 
+    }else{
+      console.log("mar",marker)
+      majorStation.push(marker)
     }
 
  
@@ -509,19 +514,18 @@ markerCluster.setGridSize(18);
     map
   );
 
- /* map.addListener("zoom_changed",function (){
-   console.log( document.querySelectorAll(`.icon`)[0].style.scale);
-    document.querySelectorAll(`.icon`)[0].style.scale=20;
 
-    document.querySelectorAll(`.icon`)[0].style.strokeWidth=7;
-    console.log( document.querySelectorAll(`.icon`)[0].style.scale);
-    console.log( document.querySelectorAll(`.icon`)[0].style.width);
+  map.addListener( 'zoom_changed', function(latlng) {
+    zoom =map.getZoom()-8;
+    zoomMajor = map.getZoom();
 
+    // if(map.getZoom() >14){
+    markersList.map(scaleforStation)
+    lines.map(scaleForLine)
+    // majorStation.map(scaleforMajor)
+    // }
 
-
-  })*/
-
-
+  });
 
   
    
@@ -595,6 +599,12 @@ function mapInfoControl(controlDiv) {
       controlText.innerHTML = "View map information";
     }
   });
+
+
+
+
+}
+
 function scaleforStation(m){
   console.log("z",zoom)
   m.setIcon({
@@ -610,6 +620,22 @@ function scaleforStation(m){
   )
 
 }
+
+function scaleforMajor(m){
+  console.log("z",zoomMajor)
+  m.setIcon({
+    path: google.maps.SymbolPath.CIRCLE ,
+    strokeOpacity: 1,
+    fillOpacity: 1,
+    scale: 1 ,
+    fillColor: "#fff",
+    strokeColor: m.icon[`strokeColor`],
+    strokeOpacity: 1.0,
+    strokeWeight: zoomMajor,
+  }
+  )
+
+}
 function scaleForLine(l){
 console.log(`l`,l)
 
@@ -620,9 +646,6 @@ l.setOptions({
   strokeOpacity: 1,
   strokeWeight: zoom,
 })
-
-
-}
 }
 
 export { initMap };

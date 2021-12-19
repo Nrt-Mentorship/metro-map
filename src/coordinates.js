@@ -381,7 +381,7 @@
 
 export const orangeStations = [
 
-{ lat: 24.592313, lng: 46.543124 },
+{ lat: 24.592313, lng: 46.543124 ,major:true,fill:"#ec7026",stroke:"#ec7026"  },
 
 
 { lat: 24.585415, lng: 46.559856 },
@@ -391,7 +391,7 @@ export const orangeStations = [
 
 
 //stations//
-{ lat: 24.581186, lng: 46.612243 },
+{ lat: 24.581186, lng: 46.612243 , major:true,fill:"#ec7026",stroke:"#ec7026"  },
 //stations//
 
 
@@ -630,4 +630,6 @@ export const yellowStations =[
   {lat:24.835247040529264, lng:46.719442424737835 },
   {lat:24.86024619267114, lng:46.70406578219624},
   {lat:24.87191160998986, lng:46.69504513089416},
+  {lat:24.807249769774963, lng:46.710444116424796},
+
 ];

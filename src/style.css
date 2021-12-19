@@ -121,8 +121,75 @@ body {
   margin-left: 400px;
 }
 
+ /* map information */
+
+ .map_info{
+  height: 10vh; 
+  width: 100%; 
+  background-color: rgb(255, 255, 255); 
+  padding-top: 20px;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 1px -4px 4px 1px rgba(0,0,0,0.53) inset;
+  -webkit-box-shadow: 1px -4px 4px 1px rgba(0,0,0,0.53) inset;
+  -moz-box-shadow: 1px -4px 4px 1px rgba(0,0,0,0.53) inset;
+ }
+
+.circle-xs{
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  background-color: purple;
+  margin: 3px;
+}
+ .circle-sm{
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  border: 13px solid green;
+}
+.circle-lg{
+  border-radius: 50%;
+  height: 26px;
+  width: 26px;
+  border: 13px solid orangered;
+}
+
+.info{
+  background-color: rgb(215, 215, 215);
+  display: flex;
+  width: 250px;
+  height: 50px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+
+@media screen and (min-width: 900px) {
+
+  .map_info{
+    display: flex;
+    overflow-x: auto;
+  }
+
+ }
+
+ .hidden{
+  display: none;
+}
+
+
 @media screen and (max-width: 480px) {
   .sidenav{
     width: 100%;
+  }
+  .map_info{
+    height: 40vh;
+  }
+  .info{
+    background-color: rgb(215, 215, 215);
+    width: 300px;
+    margin: 10px auto;
   }
  }

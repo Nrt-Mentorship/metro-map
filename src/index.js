@@ -16,10 +16,31 @@ var mcOptions = {
  
  }
  var markerCluster ;
-var allCooreds;
 var allStations=[];
 
+function innerCicle(pos,color,label){
+  var    icon = {
+    path: google.maps.SymbolPath.CIRCLE ,
 
+    fillOpacity: 1,
+    scale: 4,
+    fillColor: color,
+    strokeColor:"#ffffff",
+    strokeWeight:1
+   
+  };
+  var marker =new google.maps.Marker({
+    position: pos,
+    // icon: mapStyles.uavSymbolBlack,
+    icon: icon,
+    labelContent:label,
+    zIndex: 9999999,
+    map: map,
+  });
+  return marker
+  
+
+}
 function zoomToObject(obj){
   var bounds = new google.maps.LatLngBounds();
   var points = obj.getPath().getArray();
@@ -44,62 +65,76 @@ function drawPolyAndRoute(
   // Define a bound from the given coordinates from which we can center the map.
 
   //Create the svg marker icon
-  var icon = {
-    path: google.maps.SymbolPath.CIRCLE,
-    strokeOpacity: 1,
-    fillOpacity: 1,
-    scale: 7,
-    fillColor: "#ffffff",
-    strokeColor: color,
-    strokeOpacity: 1.0,
-    strokeWeight: 5,
-  };
+  let icon;
+
+  
 
   //Create the markers
   let markersList=[]
   for (i = 0; i < stationsLocations.length; i++) {
     var labelC=labels[i];
     var positions = new google.maps.LatLng(stationsLocations[i]);
-    icon["labelOrigin"] = labelOrigin[i];
+    if (stationsLocations[i].major){
+      icon = {
+        path: google.maps.SymbolPath.CIRCLE ,
+        strokeOpacity: 1,
+        fillOpacity: 1,
+        scale: 7,
+        fillColor: "#ffffff",
+        strokeColor: stationsLocations[i].stroke,
+        strokeOpacity: 1.0,
+        strokeWeight: 4,
+      };
+      icon["labelOrigin"] = labelOrigin[i];
 
-    var marker =new google.maps.Marker({
-      position: positions,
-      // icon: mapStyles.uavSymbolBlack,
-      icon: icon,
-      labelContent:'<i class="fas fa-train"></i>' +labels[i],
-      labelAnchor: labelOrigin[i],
-      labelClass: `labels-${colorName} labels`,
-      labelStyle: {
-        opacity: 1,
-      },
-      zIndex: 999999,
-      map: map,
-    });
-    
-    //on mouseover marker
-    marker.addListener( 'mouseover', function() {
-      if(infowindow != undefined && infowindow.position != undefined){
-        infowindow.close();
-
-      }
-      infowindow = new google.maps.InfoWindow({
-      
-        content: this.labelContent,
+      var outeRmarker =new MarkerWithLabel({
+        position: positions,
+        // icon: mapStyles.uavSymbolBlack,
+        icon: icon,
+        labelContent:`<i class="fas fa-train"></i> ${labels[i]}`,
+        labelAnchor: labelOrigin[i],
+        labelClass: `labels-${colorName} labels`,
+        zIndex: 999999,
+        map: map,
       });
-  
-      infowindow.open({
-        anchor: this,
-        map,
-        shouldFocus: false,
+      var marker=innerCicle(stationsLocations[i],stationsLocations[i].fill,`<i class="fas fa-train"></i> ${labels[i]}`)
+
+    }else{
+      icon = {
+        path: google.maps.SymbolPath.CIRCLE ,
+        strokeOpacity: 1,
+        fillOpacity: 1,
+        scale: 3,
+        fillColor: "#ffffff",
+        strokeColor: color,
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+      };
+      icon["labelOrigin"] = labelOrigin[i];
+
+      var marker =new MarkerWithLabel({
+        position: positions,
+        // icon: mapStyles.uavSymbolBlack,
+        icon: icon,
+        labelContent:`<i class="fas fa-train"></i> ${labels[i]}`,
+        labelAnchor: labelOrigin[i],
+        labelClass: `labels-${colorName} labels`,
+        labelStyle: {
+          opacity: 1,
+        },
+        zIndex: 999999,
+        map: map,
       });
+    }
+
+
     
-
-    });
-
+   
     //add all the stations to allStations array with the locations
     allStations.push({"station_name": marker.labelContent.slice(-3).toUpperCase(), "location": marker.getPosition()})
 
     var zoomLevel;
+
     google.maps.event.addListener(marker, 'click', function() {
       // map.panTo(this.getPosition());
       // map.setZoom(19);
@@ -135,25 +170,42 @@ function drawPolyAndRoute(
         document.getElementById('map').classList.remove('main');
       })
     });
-    markersList.push(marker)
+
+
+
+
+
+
+
+
+    
+    if (!stationsLocations[i].major){
+      markersList.push(marker)
+
+    }
 
   }
   markerCluster.addMarkers(markersList, true);
+
+  
   //Create the polyline that connects the markers.
   var LinePath = new google.maps.Polyline({
     path: LineLocations,
     geodesic: true,
     strokeColor: color,
     strokeOpacity: 1,
-    strokeWeight: 7,
+    strokeWeight: 3,
   });
+
 
   markers.push({line:LinePath,stations:markersList})
 
   LinePath.setMap(map);
   
 
+
   google.maps.event.addListener(LinePath, 'click', function(latlng) {
+
     highlitedLine=LinePath;
     zoomToObject(LinePath);
 
@@ -444,10 +496,7 @@ markerCluster.setGridSize(18);
   );
 
   
-    // add all stations array to one array 
-    allCooreds = coords.purpleStations.concat(coords.greenStations,coords.orangeStations,coords.redStations,coords.yellowStations);
-
-
+   
   }
  
 function getNearby(lat,lng){
@@ -473,6 +522,8 @@ function getNearby(lat,lng){
     }); 
   })
   );
+
+
 }
 
 function mapInfoControl(controlDiv) {

@@ -146,11 +146,10 @@ function drawPolyAndRoute(
       if (zoomLevel <= 14) {
         lastZoom  = map.getZoom();
 
-        // console.log("1","z"+zoomLevel+" ,l"+lastZoom)
+        console.log("1","z"+zoomLevel+" ,l"+lastZoom)
 
         map.panTo(this.getPosition());
         map.setZoom(19);
-
         let station = allStations.findIndex(
           (x) => x.station_name === this.labelContent.slice(-3).toUpperCase()
         );
@@ -178,11 +177,11 @@ function drawPolyAndRoute(
         });
       } else if(      document.querySelector(".sidenav").style.display === "block"
       ) {
-        // console.log("2","z"+zoomLevel+" ,l"+lastZoom)
+        console.log("2","z"+zoomLevel+" ,l"+lastZoom)
 
        
       }else{
-        // console.log("3","z"+zoomLevel+" ,l"+lastZoom)
+        console.log("3","z"+zoomLevel+" ,l"+lastZoom)
 
         var center = new google.maps.LatLng(24.731488, 46.707267);
         map.setCenter(center);
@@ -190,7 +189,7 @@ function drawPolyAndRoute(
       }
 
       // search for the clicked station
-    
+      
     });
 
     if (!stationsLocations[i].major) {
@@ -199,7 +198,7 @@ function drawPolyAndRoute(
       // console.log("mar", marker);
       majorStation.push(marker);
     }
-  
+  }
   markerCluster.addMarkers(markersList, true);
 
   //Create the polyline that connects the markers.

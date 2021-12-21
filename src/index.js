@@ -4,6 +4,8 @@ import "./style.css";
 
 var zoom;
 var zoomMajor;
+var lastZoom;
+
 
 // update for drawRoute function
 var markersList = [];
@@ -138,51 +140,66 @@ function drawPolyAndRoute(
       // map.panTo(this.getPosition());
       // map.setZoom(19);
 
+      console.log("side",document.querySelector(".sidenav").style.display === "block")
+
       zoomLevel = map.getZoom();
-      if (zoomLevel <= 11) {
+      if (zoomLevel <= 14) {
+        lastZoom  = map.getZoom();
+
+        // console.log("1","z"+zoomLevel+" ,l"+lastZoom)
+
         map.panTo(this.getPosition());
         map.setZoom(19);
-      } else {
+
+        let station = allStations.findIndex(
+          (x) => x.station_name === this.labelContent.slice(-3).toUpperCase()
+        );
+        //get places near the station
+        getNearby(
+          allStations[station].location.lat(),
+          allStations[station].location.lng()
+        );
+        //show the sidebar with the station details
+        document.querySelector(".sidenav").style.display = "block";
+        document.getElementById("map").classList.add("main");
+        document.querySelector(
+          ".sidenav_content"
+        ).innerHTML = `<img src="https://www.arabianbusiness.com/cloud/2021/09/14/hkaPPUM3-Riyadh-Metro-by-Alstom.jpg" alt="" class="station_img">
+          <h1>${this.labelContent.slice(-3).toUpperCase()}</h1>
+          <p>metro station</p>
+          <hr>
+          <h3>Near this location</h3>
+          <div class="nearby_place">
+            
+          </div>`;
+        document.querySelector(".icon").addEventListener("click", () => {
+          document.querySelector(".sidenav").style.display = "none";
+          document.getElementById("map").classList.remove("main");
+        });
+      } else if(      document.querySelector(".sidenav").style.display === "block"
+      ) {
+        // console.log("2","z"+zoomLevel+" ,l"+lastZoom)
+
+       
+      }else{
+        // console.log("3","z"+zoomLevel+" ,l"+lastZoom)
+
         var center = new google.maps.LatLng(24.731488, 46.707267);
         map.setCenter(center);
-        map.setZoom(11);
+        map.setZoom(lastZoom);
       }
 
       // search for the clicked station
-      let station = allStations.findIndex(
-        (x) => x.station_name === this.labelContent.slice(-3).toUpperCase()
-      );
-      //get places near the station
-      getNearby(
-        allStations[station].location.lat(),
-        allStations[station].location.lng()
-      );
-      //show the sidebar with the station details
-      document.querySelector(".sidenav").style.display = "block";
-      document.getElementById("map").classList.add("main");
-      document.querySelector(
-        ".sidenav_content"
-      ).innerHTML = `<img src="https://www.arabianbusiness.com/cloud/2021/09/14/hkaPPUM3-Riyadh-Metro-by-Alstom.jpg" alt="" class="station_img">
-        <h1>${this.labelContent.slice(-3).toUpperCase()}</h1>
-        <p>metro station</p>
-        <hr>
-        <h3>Near this location</h3>
-        <div class="nearby_place">
-          
-        </div>`;
-      document.querySelector(".icon").addEventListener("click", () => {
-        document.querySelector(".sidenav").style.display = "none";
-        document.getElementById("map").classList.remove("main");
-      });
+    
     });
 
     if (!stationsLocations[i].major) {
       markersList.push(marker);
     } else {
-      console.log("mar", marker);
+      // console.log("mar", marker);
       majorStation.push(marker);
     }
-  }
+  
   markerCluster.addMarkers(markersList, true);
 
   //Create the polyline that connects the markers.
@@ -634,7 +651,7 @@ function scaleforMajor(m) {
   });
 }
 function scaleForLine(l) {
-  console.log(`l`, l);
+  // console.log(`l`, l);
 
   l.setOptions({
     geodesic: true,

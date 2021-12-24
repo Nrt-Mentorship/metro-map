@@ -16,7 +16,6 @@ var highlitedLine;
 var markers = [];
 var map;
 var mcOptions = {
-  //imagePath:'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
   ignoreHidden: true,
 };
 var markerCluster;
@@ -34,7 +33,6 @@ function innerCicle(pos, color, label) {
   };
   var marker = new google.maps.Marker({
     position: pos,
-    // icon: mapStyles.uavSymbolBlack,
     icon: icon,
     labelContent: label,
     zIndex: 9999999,
@@ -87,7 +85,6 @@ function drawPolyAndRoute(
 
       var outeRmarker = new MarkerWithLabel({
         position: positions,
-        // icon: mapStyles.uavSymbolBlack,
         icon: icon,
         labelContent: `<i class="fas fa-train"></i> ${labels[i]}`,
         labelAnchor: labelOrigin[i],
@@ -115,7 +112,6 @@ function drawPolyAndRoute(
 
       var marker = new MarkerWithLabel({
         position: positions,
-        // icon: mapStyles.uavSymbolBlack,
         icon: icon,
         labelContent: `<i class="fas fa-train"></i> ${labels[i]}`,
         labelAnchor: labelOrigin[i],
@@ -137,16 +133,12 @@ function drawPolyAndRoute(
     var zoomLevel;
 
     google.maps.event.addListener(marker, "click", function () {
-      // map.panTo(this.getPosition());
-      // map.setZoom(19);
 
-      console.log("side",document.querySelector(".sidenav").style.display === "block")
 
       zoomLevel = map.getZoom();
       if (zoomLevel <= 14) {
         lastZoom  = map.getZoom();
 
-        console.log("1","z"+zoomLevel+" ,l"+lastZoom)
 
         map.panTo(this.getPosition());
         map.setZoom(19);
@@ -177,11 +169,9 @@ function drawPolyAndRoute(
         });
       } else if(      document.querySelector(".sidenav").style.display === "block"
       ) {
-        console.log("2","z"+zoomLevel+" ,l"+lastZoom)
 
        
       }else{
-        console.log("3","z"+zoomLevel+" ,l"+lastZoom)
 
         var center = new google.maps.LatLng(24.731488, 46.707267);
         map.setCenter(center);
@@ -195,8 +185,7 @@ function drawPolyAndRoute(
     if (!stationsLocations[i].major) {
       markersList.push(marker);
     } else {
-      // console.log("mar", marker);
-      majorStation.push(marker);
+      majorStation.push({'marker':marker,'outMarker':outeRmarker,'color':stationsLocations[i].fill,'stroke':stationsLocations[i].stroke});
     }
   }
   markerCluster.addMarkers(markersList, true);
@@ -286,7 +275,6 @@ function initMap() {
     rect.setMap(null);
     for (let index = 0; index < markers.length; index++) {
       const markersList = markers[index];
-      console.log(markersList.stations);
       markersList.stations.map((staion) => {
         staion.setMap(map);
       });
@@ -546,13 +534,11 @@ function initMap() {
 
   map.addListener("zoom_changed", function (latlng) {
     zoom = map.getZoom() - 8;
-    zoomMajor = map.getZoom();
+    zoomMajor = map.getZoom()-11;
 
-    // if(map.getZoom() >14){
     markersList.map(scaleforStation);
     lines.map(scaleForLine);
-    // majorStation.map(scaleforMajor)
-    // }
+    majorStation.map(scaleforMajor)
   });
 }
 
@@ -623,7 +609,6 @@ function mapInfoControl(controlDiv) {
 }
 
 function scaleforStation(m) {
-  console.log("z", zoom);
   m.setIcon({
     path: google.maps.SymbolPath.CIRCLE,
     strokeOpacity: 1,
@@ -637,20 +622,30 @@ function scaleforStation(m) {
 }
 
 function scaleforMajor(m) {
-  console.log("z", zoomMajor);
-  m.setIcon({
+
+
+  m.outMarker.setIcon({
     path: google.maps.SymbolPath.CIRCLE,
     strokeOpacity: 1,
     fillOpacity: 1,
-    scale: 1,
-    fillColor: "#fff",
-    strokeColor: m.icon[`strokeColor`],
+    scale: 7+zoomMajor,
+    fillColor: "#ffffff",
+    strokeColor: m.stroke,
     strokeOpacity: 1.0,
-    strokeWeight: zoomMajor,
+    strokeWeight: 4+zoomMajor,
+  })
+  m.marker.setIcon({
+    path: google.maps.SymbolPath.CIRCLE,
+    strokeOpacity: 1,
+    fillOpacity: 1,
+    scale: 3,
+    fillColor: m.color,
+    strokeColor: m.color,
+    strokeOpacity: 1.0,
+    strokeWeight: zoomMajor+1,
   });
 }
 function scaleForLine(l) {
-  // console.log(`l`, l);
 
   l.setOptions({
     geodesic: true,

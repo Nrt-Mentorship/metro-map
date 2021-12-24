@@ -425,7 +425,7 @@ export const orangeStations = [
     lat: 24.592313,
     lng: 46.543124,
     major: true,
-    fill: "#ec7026",
+    fill: "#fff",
     stroke: "#ec7026",
   },
 
@@ -438,7 +438,7 @@ export const orangeStations = [
     lat: 24.581186,
     lng: 46.612243,
     major: true,
-    fill: "#ec7026",
+    fill: "#fff",
     stroke: "#ec7026",
   },
   //stations//

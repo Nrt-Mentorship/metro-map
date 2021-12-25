@@ -295,7 +295,6 @@ function initMap() {
     "1h2",
     "1g2",
     "1g1",
-    "6e1",
     "1f9",
     "1f8",
     "1f7",
@@ -307,23 +306,49 @@ function initMap() {
     "1c4",
     "1c3",
     "1c2",
-    "1c1",
-    "1a1",
+    "1C1",
+    "1B4",
+    "1B3",
+    "1B2",
+    "1B1",
+    "1A2",
+    "1A1",
+    "1Z2",
+    "1Y1"
+
   ];
 
   // offset to postion the lables
   var blueLabelOrigin = [
     new google.maps.Point(10, 0),
     new google.maps.Point(5, -10),
-    new google.maps.Point(10, 0),
-    new google.maps.Point(12, -5),
+    new google.maps.Point(5, 0),
+    new google.maps.Point(12, -10),
     new google.maps.Point(9, 0),
-    new google.maps.Point(-10, -23),
-    new google.maps.Point(-10, 5),
-    new google.maps.Point(-10, -20),
-    new google.maps.Point(0, 5),
-    new google.maps.Point(-10, -20),
+    new google.maps.Point(0, -23),
+    new google.maps.Point(-15, 5),
+    new google.maps.Point(-20, 15),
+    new google.maps.Point(10, -5),
+    new google.maps.Point(-25, 5),
     new google.maps.Point(5, -10),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(0, 0),
+
+
+
   ];
 
   drawPolyAndRoute(
